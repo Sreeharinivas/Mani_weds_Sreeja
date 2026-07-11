@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Celebration of Love</title>
+    
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Luxury Typography: Cormorant Garamond (Editorial Serif), Pinyon Script (Calligraphy) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Pinyon+Script&family=Kavivanar&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./src/styles/reset.css">
+    <link rel="stylesheet" href="./src/styles/variables.css">
+    <link rel="stylesheet" href="./src/styles/typography.css">
+    <link rel="stylesheet" href="./src/styles/layout.css">
+    <link rel="stylesheet" href="./src/styles/components.css">
+    <link rel="stylesheet" href="./src/styles/animations.css">
+</head>
+<body>
+    <!-- CINEMATIC BOTANICAL PARTICLES -->
+    <canvas id="cinematic-particles" class="particle-layer"></canvas>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="custom-cursor" id="custom-cursor"></div>
+
+    <!-- CINEMATIC PRELOADER -->
+    <div id="preloader" class="preloader">
+        <div class="curtain curtain-left"></div>
+        <div class="curtain curtain-right"></div>
+        <div class="preloader-content" style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2;">
+            <img src="./src/assets/images/golden_motif.svg" alt="" style="width: 40px; margin-bottom: var(--space-md); filter: brightness(1.2); opacity: 0;" class="fade-in">
+            <h2 class="script-text text-gold preloader-text" style="font-size: clamp(4rem, 8vw, 6rem); line-height: 1; letter-spacing: 0.05em; margin-bottom: var(--space-md); text-shadow: 0 0 30px rgba(212,175,55,0.8), 0 0 10px rgba(212,175,55,0.4);">
+                M <span style="font-size: 0.5em; color: var(--color-antique-gold); vertical-align: middle; text-shadow: none;">❤️</span> S
+            </h2>
+            <img src="./src/assets/images/golden_motif.svg" alt="" style="width: 40px; transform: rotate(180deg); filter: brightness(1.2); opacity: 0;" class="fade-in delay-200">
+        </div>
+        <div class="loader-particles"></div>
+    </div>
+
+    <!-- AMBIENT AUDIO TOGGLE -->
+    <button class="audio-toggle" id="audio-toggle" aria-label="Toggle ambient audio">
+        <div class="audio-vinyl">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" stroke-width="1"></circle>
+                <circle cx="12" cy="12" r="3" fill="currentColor"></circle>
+                <path d="M12 2v2"></path>
+                <path d="M12 20v2"></path>
+                <path d="M22 12h-2"></path>
+                <path d="M4 12H2"></path>
+            </svg>
+        </div>
+        <span class="audio-tooltip">Play Music</span>
+    </button>
+    <audio id="ambient-audio" loop src=""></audio>
+
+    <main class="cinematic-experience">
+        <!-- SECTION: HERO (Wonder) -->
+        <section id="hero" class="section-wrapper">
+            <!-- Animated Background Image (Place your uploaded image at this path) -->
+            <div class="bg-layer hero-bg-image"></div>
+            <div class="bg-layer hero-bg-overlay"></div>
+            
+            <div class="bg-layer bg-texture-paper" data-speed="0.2"></div>
+            <!-- Handcrafted floral frames -->
+            <img src="./src/assets/images/hero_floral_frame.svg" alt="" class="floral-corner top-left fade-in delay-500" data-speed="-0.1">
+            <img src="./src/assets/images/hero_floral_frame.svg" alt="" class="floral-corner bottom-right fade-in delay-500" data-speed="-0.15">
+            
+            <div class="container text-center">
+                <p class="text-caption fade-up">With Joyful Hearts</p>
+                <h1 class="script-text ink-reveal delay-200" style="font-size: clamp(3rem, 7vw, 6rem); line-height: 1.1;" data-speed="-0.05">Sreeja Sakthi<br><span style="font-size: 0.6em;">&</span><br>Manikandan</h1>
+                <p class="title-section fade-up delay-300" style="margin-top: var(--space-sm);">Invite you to celebrate<br>their union</p>
+                
+                <!-- SCROLL AFFORDANCE -->
+                <div class="scroll-affordance fade-in delay-500">
+                    <div class="scroll-line"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COUNTDOWN (Anticipation) -->
+        <section id="countdown-chapter" class="section-wrapper text-center" style="position: relative; overflow: hidden; padding: var(--space-xl) 0;">
+            <div class="container" style="position: relative; z-index: 2;">
+                <!-- Countdown Active State -->
+                <div id="countdown-active">
+                    <h2 class="script-text text-gold ink-reveal" style="font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: var(--space-lg);">The Celebration Begins In</h2>
+                    
+                    <div class="countdown-wrapper fade-up delay-200">
+                        <div class="countdown-card">
+                            <span class="countdown-number" id="cd-days">00</span>
+                            <span class="countdown-label">Days</span>
+                        </div>
+                        <div class="countdown-card">
+                            <span class="countdown-number" id="cd-hours">00</span>
+                            <span class="countdown-label">Hours</span>
+                        </div>
+                        <div class="countdown-card">
+                            <span class="countdown-number" id="cd-minutes">00</span>
+                            <span class="countdown-label">Minutes</span>
+                        </div>
+                        <div class="countdown-card">
+                            <span class="countdown-number" id="cd-seconds">00</span>
+                            <span class="countdown-label">Seconds</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Bonus Text -->
+                    <p class="text-caption fade-up delay-400" style="margin-top: var(--space-md); color: var(--color-deep-forest); font-style: italic; font-size: 1rem; opacity: 0.8; letter-spacing: 0.05em;">"Every second brings us closer to our forever..."</p>
+                </div>
+
+                <!-- Countdown End State -->
+                <div id="countdown-ended" style="display: none; opacity: 0; transform: translateY(20px); transition: all 1s ease;">
+                    <img src="./src/assets/images/golden_motif.svg" alt="" class="floral-divider" style="width: 40px; margin: 0 auto var(--space-sm);">
+                    <h2 class="script-text text-gold" style="font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: var(--space-sm); text-shadow: 0 0 20px rgba(212,175,55,0.4);">✨ Today is Our Wedding Day ✨</h2>
+                    <p style="color: var(--color-deep-forest); font-family: var(--font-editorial); font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6;">With grateful hearts and joyful smiles, we begin our beautiful journey together. Thank you for being a part of our celebration.</p>
+                    <img src="./src/assets/images/golden_motif.svg" alt="" class="floral-divider" style="width: 40px; margin: var(--space-sm) auto 0; transform: rotate(180deg);">
+                </div>
+            </div>
+            
+            <!-- Floating gold particles (optional) -->
+            <div id="countdown-particles-container" style="position: absolute; inset: 0; pointer-events: none;"></div>
+        </section>
+
+        <!-- CHAPTER 2: WELCOME (Context) -->
+        <section id="welcome" class="section-wrapper text-center" style="padding-bottom: 0;">
+            <div class="container">
+                <p class="text-caption fade-up">Chapter I</p>
+                <h2 class="script-text text-gold ink-reveal delay-200" style="font-size: 3rem; margin-bottom: var(--space-sm);">The Beginning</h2>
+                <p class="fade-up delay-300" style="max-width: 45ch;">We are overjoyed to share the beginning of our new life with you. Our journey has been filled with grace, love, and the blessings of our ancestors.</p>
+            </div>
+        </section>
+
+        <!-- CHAPTER 3: STORY (Romance) -->
+        <section id="story" class="section-wrapper" style="padding-bottom: 0;">
+            <div class="container text-center">
+                <div class="fade-up" style="width: 100%; max-width: 1200px; margin: 0 auto; border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-soft);">
+                    <!-- Delicate gold ornamental divider below -->
+                    <img src="./src/assets/images/story-banner.svg" alt="Our Story Banner" style="width: 100%; height: auto; display: block;">
+                </div>
+                <img src="./src/assets/images/golden_motif.svg" alt="" class="floral-divider fade-in delay-300" style="width: 40px; margin-top: var(--space-lg); transform: rotate(180deg);">
+            </div>
+        </section>
+
+        <!-- CHAPTER 5: HER STORY (The Bride) -->
+        <section id="bride" class="section-wrapper" style="position: relative; overflow: hidden; padding: var(--space-xxl) 0;">
+            <div class="bg-layer bg-texture-paper" data-speed="0.1"></div>
+            
+            <div class="container grid-editorial-asymmetric">
+                <div class="col-image fade-up">
+                    <div class="portrait-art" style="box-shadow: 0 30px 60px rgba(0,0,0,0.08);">
+                        <img src="./src/assets/images/placeholder_bride.png" alt="Bride Placeholder" style="transition: transform 10s ease-out;" class="scale-on-scroll">
+                    </div>
+                </div>
+                
+                <div class="col-text fade-up delay-200" style="padding-left: var(--space-lg);">
+                    <p class="text-caption">Her Story</p>
+                    <h2 class="script-text text-gold ink-reveal delay-300" style="font-size: clamp(3rem, 5vw, 4.5rem); margin-bottom: var(--space-md); margin-top: var(--space-sm);">V. Sreeja Sakthi</h2>
+                    
+                    <img src="./src/assets/images/golden_motif.svg" alt="" style="width: 40px; margin-bottom: var(--space-md); opacity: 0.8;" class="fade-in delay-500">
+                    
+                    <div class="text-body fade-up delay-400" style="max-width: 500px;">
+                        <p style="margin-bottom: var(--space-md); color: var(--color-deep-forest); line-height: 1.8;">Behind her gentle smile is a woman of remarkable determination, whose journey has been guided by curiosity, learning, and quiet confidence. She carries herself with grace, embraces every challenge with poise, and cherishes the simple joys that make life truly meaningful.</p>
+                        
+                        <div style="width: 30px; height: 1px; background-color: var(--color-antique-gold); margin: var(--space-sm) 0; opacity: 0.5;"></div>
+                        
+                        <p style="font-family: 'Kavivanar', cursive; font-size: 1.1rem; line-height: 2.2; color: var(--color-deep-forest); opacity: 0.9;">
+                            பணிவும், பொறுப்பும், பாசமும் அழகாய் ஒன்றிணைந்த இதயம்...<br>
+                            அமைதியில் ஆழமான வலிமையையும், எளிமையில் உண்மையான அழகையும் தன்னுள் கொண்டவள்.<br>
+                            அறிவும் அன்பும் இணைந்த அவளின் வாழ்க்கைப் பயணம்,<br>
+                            இனி இரு இதயங்கள் இணையும் இனிய இல்லறப் பயணமாக மலர்கிறது.
+                        </p>
+                        
+                        <div style="margin-top: var(--space-xl); margin-bottom: var(--space-md); display: flex; align-items: center; gap: var(--space-sm); width: 60%; opacity: 0.8;">
+                            <img src="./src/assets/images/golden_motif.svg" alt="" style="width: 20px;">
+                            <div style="flex-grow: 1; height: 1px; background: linear-gradient(to right, rgba(212,175,55,0.4), transparent);"></div>
+                        </div>
+                        
+                        <div class="fade-up delay-500">
+                            <p class="text-caption" style="font-size: 0.85rem; letter-spacing: 0.15em; color: var(--color-antique-gold); margin-bottom: 4px;">Bride's Family</p>
+                            <h3 style="font-family: var(--font-editorial); font-size: 1.5rem; color: var(--color-deep-forest); font-weight: 400; letter-spacing: 0.02em;">S. Venkatesh Prabhu & Family</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAPTER 6: HIS STORY (The Groom) -->
+        <section id="groom" class="section-wrapper" style="position: relative; overflow: hidden; padding: var(--space-xxl) 0;">
+            <div class="bg-layer bg-texture-paper" data-speed="0.05" style="background-color: #F8F5F0;"></div>
+            
+            <div class="container grid-editorial-asymmetric-reversed">
+                <div class="col-text fade-up" style="padding-right: var(--space-lg); text-align: right;">
+                    <p class="text-caption">His Story</p>
+                    <h2 class="script-text text-gold ink-reveal delay-200" style="font-size: clamp(3rem, 5vw, 4.5rem); margin-bottom: var(--space-md); margin-top: var(--space-sm);">Manikandan B</h2>
+                    
+                    <img src="./src/assets/images/golden_motif.svg" alt="" style="width: 40px; margin-bottom: var(--space-md); opacity: 0.8; margin-left: auto;" class="fade-in delay-400">
+                    
+                    <div class="text-body fade-up delay-300" style="max-width: 500px; margin-left: auto;">
+                        <p style="margin-bottom: var(--space-md); color: var(--color-deep-forest); line-height: 1.8;">With a heart rooted in tradition and a vision shaped by hope, Manikandan embodies quiet elegance and unwavering determination. His warmth, humility, and deep respect for family make this new beginning not just a union, but the start of a beautiful lifelong story.</p>
+                        
+                        <div style="width: 30px; height: 1px; background-color: var(--color-antique-gold); margin: var(--space-sm) 0 var(--space-sm) auto; opacity: 0.5;"></div>
+                        
+                        <p style="font-family: 'Kavivanar', cursive; font-size: 1.1rem; line-height: 2.2; color: var(--color-deep-forest); opacity: 0.9;">
+                            அமைதியில் ஆழமும், எண்ணங்களில் முதிர்ச்சியும், இதயத்தில் அன்பும் நிறைந்தவர்...<br>
+                            வாழ்க்கையின் ஒவ்வொரு தருணத்தையும் அர்த்தமுள்ளதாக்கும் பண்பும்,<br>
+                            உறவுகளை மதிக்கும் உயர்ந்த மனமும் கொண்டவர்.<br>
+                            இன்று தனது இல்லற வாழ்வின் அழகிய அத்தியாயத்தை மகிழ்ச்சியுடன் தொடங்குகிறார்.
+                        </p>
+                        
+                        <div style="margin-top: var(--space-xl); margin-bottom: var(--space-md); margin-left: auto; display: flex; align-items: center; gap: var(--space-sm); width: 60%; opacity: 0.8;">
+                            <div style="flex-grow: 1; height: 1px; background: linear-gradient(to left, rgba(212,175,55,0.4), transparent);"></div>
+                            <img src="./src/assets/images/golden_motif.svg" alt="" style="width: 20px;">
+                        </div>
+                        
+                        <div class="fade-up delay-500">
+                            <p class="text-caption" style="font-size: 0.85rem; letter-spacing: 0.15em; color: var(--color-antique-gold); margin-bottom: 4px;">Groom's Family</p>
+                            <h3 style="font-family: var(--font-editorial); font-size: 1.5rem; color: var(--color-deep-forest); font-weight: 400; letter-spacing: 0.02em;">P. Boopathi & Family</h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-image fade-up delay-200">
+                    <div class="portrait-art" style="box-shadow: 0 30px 60px rgba(0,0,0,0.12);">
+                        <img src="./src/assets/images/placeholder_groom.png" alt="Groom Placeholder" style="transition: transform 10s ease-out;" class="scale-on-scroll">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- THE UNION TRANSITION -->
+        <section id="union" class="section-wrapper text-center" style="position: relative; overflow: hidden; padding: 150px 0; min-height: 40vh; display: flex; align-items: center; justify-content: center;">
+            <div class="bg-layer bg-texture-paper" data-speed="0.08"></div>
+            
+            <div class="container" style="position: relative; z-index: 2;">
+                <!-- Animated SVG Vines Intertwining -->
+                <div class="union-vines is-visible" style="width: 300px; height: 150px; margin: 0 auto; margin-bottom: var(--space-lg);">
+                    <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg" style="overflow: visible;">
+                        <!-- Left Vine -->
+                        <path class="vine-left" d="M 0,150 Q 50,100 100,75 T 150,75" fill="none" stroke="var(--color-antique-gold)" stroke-width="2" stroke-linecap="round" />
+                        <path class="vine-left-leaves" d="M 30,120 Q 40,110 35,100 Q 25,110 30,120 M 70,90 Q 80,75 70,65 Q 60,75 70,90" fill="var(--color-antique-gold)" opacity="0.8"/>
+                        
+                        <!-- Right Vine -->
+                        <path class="vine-right" d="M 300,150 Q 250,100 200,75 T 150,75" fill="none" stroke="var(--color-antique-gold)" stroke-width="2" stroke-linecap="round" />
+                        <path class="vine-right-leaves" d="M 270,120 Q 260,110 265,100 Q 275,110 270,120 M 230,90 Q 220,75 230,65 Q 240,75 230,90" fill="var(--color-antique-gold)" opacity="0.8"/>
+                        
+                        <!-- Center Knot / Bloom -->
+                        <circle class="union-bloom" cx="150" cy="75" r="4" fill="var(--color-antique-gold)" />
+                        <path class="union-bloom" d="M 150,75 Q 160,60 150,45 Q 140,60 150,75 M 150,75 Q 165,85 180,75 Q 165,65 150,75 M 150,75 Q 140,90 150,105 Q 160,90 150,75 M 150,75 Q 135,65 120,75 Q 135,85 150,75" fill="none" stroke="var(--color-antique-gold)" stroke-width="1.5" />
+                    </svg>
+                </div>
+                
+                <p class="text-caption fade-up delay-300">The Journey</p>
+                <h2 class="script-text text-gold ink-reveal delay-500" style="font-size: clamp(3rem, 6vw, 4.5rem);">Their Forever Begins</h2>
+            </div>
+        </section>
+
+        <!-- CHAPTER 4: TRADITIONAL INVITATION (Heritage) -->
+        <section id="tamil-invite" class="section-wrapper text-center" style="position: relative; overflow: hidden; padding: var(--space-xxl) 0; min-height: 80vh; display: flex; align-items: center; justify-content: center;">
+            <!-- Soft ivory handmade paper background -->
+            <div class="bg-layer bg-texture-paper" data-speed="0.08"></div>
+            
+            <!-- Handcrafted South Indian SVG Artwork Layer -->
+            <div class="art-layer is-visible" style="position: absolute; inset: 0; pointer-events: none; z-index: 1;">
+                <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+                    <defs>
+                        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="var(--color-antique-gold)" stop-opacity="0.8" />
+                            <stop offset="100%" stop-color="var(--color-antique-gold)" stop-opacity="0.3" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- Distant Temple Gopuram Silhouette -->
+                    <path class="gopuram" d="M 450,800 L 450,700 L 470,700 L 470,600 L 490,600 L 490,500 L 510,500 L 510,400 L 530,400 L 530,300 L 550,300 L 550,200 L 580,200 L 600,150 L 620,200 L 650,200 L 650,300 L 670,300 L 670,400 L 690,400 L 690,500 L 710,500 L 710,600 L 730,600 L 730,700 L 750,700 L 750,800 Z" fill="none" stroke="rgba(212,175,55,0.08)" stroke-width="1.5" stroke-dasharray="4,4"/>
+                    
+                    <!-- Left Banana Leaves -->
+                    <g class="banana-leaves" fill="none" stroke="rgba(160,180,160,0.4)" stroke-width="1.5">
+                        <path d="M -50,150 Q 150,100 250,400 Q 100,500 -50,650 Z" />
+                        <path d="M -50,220 Q 120,180 180,400 Q 80,480 -50,600 Z" />
+                    </g>
+                    
+                    <!-- Right Banana Leaves -->
+                    <g class="banana-leaves" fill="none" stroke="rgba(160,180,160,0.4)" stroke-width="1.5">
+                        <path d="M 1250,150 Q 1050,100 950,400 Q 1100,500 1250,650 Z" />
+                        <path d="M 1250,220 Q 1080,180 1020,400 Q 1120,480 1250,600 Z" />
+                    </g>
+                    
+                    <!-- Hanging Torans (Jasmine & Mango Leaves) -->
+                    <g class="toran sway-garland" stroke="rgba(212,175,55,0.4)" stroke-width="1.5" fill="none">
+                        <!-- Swoops -->
+                        <path d="M 0,-10 Q 200,180 400,-10" />
+                        <path d="M 400,-10 Q 600,120 800,-10" />
+                        <path d="M 800,-10 Q 1000,180 1200,-10" />
+                        
+                        <!-- Hanging Bells -->
+                        <g fill="rgba(212,175,55,0.25)" stroke="none">
+                            <rect x="199" y="85" width="2" height="40" />
+                            <path d="M 190,125 L 210,125 L 205,145 L 195,145 Z" />
+                            <circle cx="200" cy="148" r="2" />
+                            
+                            <rect x="599" y="55" width="2" height="30" />
+                            <path d="M 592,85 L 608,85 L 604,100 L 596,100 Z" />
+                            <circle cx="600" cy="103" r="2" />
+                            
+                            <rect x="999" y="85" width="2" height="40" />
+                            <path d="M 990,125 L 1010,125 L 1005,145 L 995,145 Z" />
+                            <circle cx="1000" cy="148" r="2" />
+                        </g>
+                    </g>
+                    
+                    <!-- Left Kuthu Vilakku (Brass Lamp) -->
+                    <g class="lamp" transform="translate(150, 650)" stroke="url(#goldGrad)" fill="none" stroke-width="1.5">
+                        <path d="M -40,150 L 40,150 L 20,130 L -20,130 Z" />
+                        <path d="M -10,130 L -10,30 L 10,30 L 10,130 Z" />
+                        <path d="M -25,10 L -35,30 L 35,30 L 25,10 L -25,10 Z" />
+                        <path d="M 0,10 L 0,-20 L -10,-20 Z" />
+                        <path class="flame-flicker" d="M -10,-25 Q 0,-45 10,-25 Q 0,-15 -10,-25 Z" fill="rgba(255, 180, 50, 0.8)" stroke="none" />
+                    </g>
+                    
+                    <!-- Right Kuthu Vilakku (Brass Lamp) -->
+                    <g class="lamp" transform="translate(1050, 650)" stroke="url(#goldGrad)" fill="none" stroke-width="1.5">
+                        <path d="M -40,150 L 40,150 L 20,130 L -20,130 Z" />
+                        <path d="M -10,130 L -10,30 L 10,30 L 10,130 Z" />
+                        <path d="M -25,10 L -35,30 L 35,30 L 25,10 L -25,10 Z" />
+                        <path d="M 0,10 L 0,-20 L 10,-20 Z" />
+                        <path class="flame-flicker" d="M -10,-25 Q 0,-45 10,-25 Q 0,-15 -10,-25 Z" fill="rgba(255, 180, 50, 0.8)" stroke="none" />
+                    </g>
+                    
+                    <!-- Animated Kolam Pattern Base -->
+                    <g class="kolam draw-kolam" fill="none" stroke="rgba(212,175,55,0.2)" stroke-width="1.2" transform="translate(600, 750)">
+                        <path d="M -250,0 Q -150,-80 -50,-20 Q 0,-120 50,-20 Q 150,-80 250,0" />
+                        <path d="M -250,0 Q -150,80 -50,20 Q 0,120 50,20 Q 150,80 250,0" />
+                        <circle cx="-150" cy="-20" r="4"/>
+                        <circle cx="150" cy="-20" r="4"/>
+                        <circle cx="-150" cy="20" r="4"/>
+                        <circle cx="150" cy="20" r="4"/>
+                    </g>
+                    
+                    <!-- Blooming Lotus Centerpiece -->
+                    <g class="lotus bloom-lotus" transform="translate(600, 720)" fill="none" stroke="var(--color-antique-gold)" stroke-width="1.5">
+                        <path d="M 0,25 Q 25,-40 0,-70 Q -25,-40 0,25 Z" fill="rgba(212,175,55,0.05)" />
+                        <path class="petal-left" d="M 0,25 Q 50,-20 35,-50 Q 15,-25 0,25 Z" fill="rgba(212,175,55,0.03)" />
+                        <path class="petal-right" d="M 0,25 Q -50,-20 -35,-50 Q -15,-25 0,25 Z" fill="rgba(212,175,55,0.03)" />
+                        <path class="petal-left-outer" d="M 0,25 Q 70,5 55,-30 Q 25,-10 0,25 Z" />
+                        <path class="petal-right-outer" d="M 0,25 Q -70,5 -55,-30 Q -25,-10 0,25 Z" />
+                    </g>
+                </svg>
+            </div>
+
+            <div class="container" style="position: relative; z-index: 2; padding: var(--space-xl) 0;">
+                <div class="fade-up delay-200" style="padding: 0 var(--space-sm);">
+                    <p class="tamil-text ink-reveal" style="font-family: 'Kavivanar', cursive; font-size: clamp(1.4rem, 2.5vw, 2.2rem); line-height: 2.2; color: var(--color-deep-forest); max-width: 900px; margin: 0 auto; letter-spacing: 0.02em;">
+                        மண்ணோடு விதை சேர்ந்து மணத்தோடு மலர் பூத்தது போல்,<br>
+                        மனதோடு மனம் சேர்ந்து <span class="text-gold" style="font-weight: 500;">மணம் வீசும் இம்மங்கல திருமணநாளில்</span>,<br>
+                        தம்பதியரை வாழ்த்த உங்கள் வருகையை அன்போடு வேண்டுகிறோம்!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAPTER 5: MUHURTHAM (Sacred Morning) -->
+        <section id="muhurtham" class="section-wrapper text-center" style="position: relative; overflow: hidden; padding-bottom: 120px;">
+            <!-- Background Layer with Generated Image -->
+            <div class="bg-layer" data-speed="0.1" style="background-image: url('./src/assets/images/muhurtham-bg.png'); background-size: cover; background-position: center; opacity: 0.3;"></div>
+            
+            <!-- Morning Sun Rays Overlay -->
+            <div class="sun-rays"></div>
+
+            <div class="container" style="position: relative; z-index: 2;">
+                <p class="text-caption fade-up">Chapter II</p>
+                <h2 class="script-text text-gold ink-reveal delay-200" style="font-size: clamp(3rem, 6vw, 4.5rem); margin-bottom: var(--space-md);">Muhurtham</h2>
+                
+                <!-- Invitation Card UI -->
+                <div class="card-invitation fade-up delay-300">
+                    <img src="./src/assets/images/golden_motif.svg" alt="" class="floral-divider" style="width: 35px; margin: 0 auto var(--space-sm);">
+                    <p class="text-caption" style="color: var(--color-deep-forest); font-weight: 600;">23 August</p>
+                    <p style="font-size: 1.2rem; margin: var(--space-xs) 0 var(--space-sm);">10:45 AM - 11:45 AM</p>
+                    <p style="margin: 0; font-family: var(--font-editorial);">Tirupati Mahal<br>Periakottai, Udumalpet</p>
+                    <img src="./src/assets/images/golden_motif.svg" alt="" class="floral-divider" style="width: 35px; margin: var(--space-sm) auto 0; transform: rotate(180deg);">
+                </div>
+
+                <div style="margin-top: var(--space-md);" class="fade-up delay-400">
+                    <button class="btn-luxury btn-calendar-event" data-event="muhurtham" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; background-color: transparent; border-color: rgba(212,175,55,0.6);">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        Add to Calendar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Transition Wave to Reception -->
+            <div class="transition-wave">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C73.23,28.7,148.9,56.44,321.39,56.44Z" class="shape-fill"></path>
+                </svg>
+            </div>
+        </section>
+
+        <!-- CHAPTER 6: RECEPTION (Grand Evening) -->
+        <section id="reception" class="section-wrapper text-center bg-reception" style="position: relative; overflow: hidden; padding-top: 120px;">
+            <!-- Background Layer with Generated Image -->
+            <div class="bg-layer" data-speed="0.1" style="background-image: url('./src/assets/images/reception-bg.png'); background-size: cover; background-position: center; opacity: 0.15;"></div>
+            
+            <!-- Majestic South Indian Evening Atmosphere (Handcrafted SVG) -->
+            <div class="art-layer is-visible" style="position: absolute; inset: 0; pointer-events: none; z-index: 1;">
+                <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+                    <defs>
+                        <linearGradient id="eveningGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#F2D06B" stop-opacity="0.8"/>
+                            <stop offset="100%" stop-color="#D4AF37" stop-opacity="0.2"/>
+                        </linearGradient>
+                        <radialGradient id="lampGlow" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#F2D06B" stop-opacity="0.2"/>
+                            <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+                        </radialGradient>
+                    </defs>
+                    
+                    <!-- Faint Mandala Background -->
+                    <g transform="translate(600, 400)" opacity="0.08" stroke="var(--color-antique-gold)" stroke-width="1.5" fill="none">
+                        <circle cx="0" cy="0" r="350" />
+                        <circle cx="0" cy="0" r="330" stroke-dasharray="5,5" />
+                        <path d="M0,-350 L0,350 M-350,0 L350,0 M-247,-247 L247,247 M-247,247 L247,-247" />
+                        <circle cx="0" cy="0" r="150" />
+                        <path d="M0,-150 Q75,-75 150,0 Q75,75 0,150 Q-75,75 -150,0 Q-75,-75 0,-150 Z" />
+                    </g>
+
+                    <!-- Elegant Hanging Torans (Garlands) -->
+                    <g fill="none" stroke="url(#eveningGold)" stroke-width="1.5">
+                        <path d="M0,-10 Q200,120 400,-10" />
+                        <path d="M400,-10 Q600,180 800,-10" />
+                        <path d="M800,-10 Q1000,120 1200,-10" />
+                        
+                        <!-- Hanging Temple Bells -->
+                        <g opacity="0.7">
+                            <line x1="200" y1="55" x2="200" y2="150" />
+                            <path d="M190,150 L210,150 L205,175 L195,175 Z" fill="url(#eveningGold)" />
+                            
+                            <line x1="600" y1="85" x2="600" y2="210" />
+                            <path d="M585,210 L615,210 L605,245 L595,245 Z" fill="url(#eveningGold)" />
+                            
+                            <line x1="1000" y1="55" x2="1000" y2="150" />
+                            <path d="M990,150 L1010,150 L1005,175 L995,175 Z" fill="url(#eveningGold)" />
+                        </g>
+                    </g>
+
+                    <!-- Majestic Kuthu Vilakkus (Lamps) flanking the sides -->
+                    <g transform="translate(150, 650)" stroke="url(#eveningGold)" fill="none" stroke-width="2">
+                        <circle cx="0" cy="-20" r="120" fill="url(#lampGlow)" stroke="none" />
+                        <path d="M-40,150 L40,150 L20,120 L-20,120 Z" />
+                        <path d="M-10,120 L-10,0 L10,0 L10,120 Z" />
+                        <path d="M-25,-30 L-35,0 L35,0 L25,-30 L-25,-30 Z" />
+                        <path d="M0,-30 L0,-60 L-10,-60 Z" />
+                        <path class="flame-flicker" d="M-10,-65 Q0,-85 10,-65 Q0,-50 -10,-65 Z" fill="#F2D06B" stroke="none" />
+                        <path class="flame-flicker" style="animation-delay: 0.3s;" d="M-35,-20 Q-25,-40 -15,-20 Q-25,-10 -35,-20 Z" fill="#F2D06B" stroke="none" />
+                        <path class="flame-flicker" style="animation-delay: 0.6s;" d="M15,-20 Q25,-40 35,-20 Q25,-10 15,-20 Z" fill="#F2D06B" stroke="none" />
+                    </g>
+                    
+                    <g transform="translate(1050, 650)" stroke="url(#eveningGold)" fill="none" stroke-width="2">
+                        <circle cx="0" cy="-20" r="120" fill="url(#lampGlow)" stroke="none" />
+                        <path d="M-40,150 L40,150 L20,120 L-20,120 Z" />
+                        <path d="M-10,120 L-10,0 L10,0 L10,120 Z" />
+                        <path d="M-25,-30 L-35,0 L35,0 L25,-30 L-25,-30 Z" />
+                        <path d="M0,-30 L0,-60 L10,-60 Z" />
+                        <path class="flame-flicker" d="M-10,-65 Q0,-85 10,-65 Q0,-50 -10,-65 Z" fill="#F2D06B" stroke="none" />
+                        <path class="flame-flicker" style="animation-delay: 0.2s;" d="M-35,-20 Q-25,-40 -15,-20 Q-25,-10 -35,-20 Z" fill="#F2D06B" stroke="none" />
+                        <path class="flame-flicker" style="animation-delay: 0.5s;" d="M15,-20 Q25,-40 35,-20 Q25,-10 15,-20 Z" fill="#F2D06B" stroke="none" />
+                    </g>
+                </svg>
+            </div>
+            
+            <!-- Bokeh Lights Effect -->
+            <div class="bokeh-container">
+                <div class="bokeh-orb" style="width: 80px; height: 80px; left: 10%; animation-duration: 18s; animation-delay: -5s;"></div>
+                <div class="bokeh-orb" style="width: 120px; height: 120px; left: 85%; animation-duration: 22s; animation-delay: -2s;"></div>
+                <div class="bokeh-orb" style="width: 50px; height: 50px; left: 40%; animation-duration: 15s; animation-delay: -10s;"></div>
+                <div class="bokeh-orb" style="width: 90px; height: 90px; left: 60%; animation-duration: 25s; animation-delay: -12s;"></div>
+            </div>
+
+            <div class="container" style="position: relative; z-index: 2;">
+                <p class="text-caption fade-up" style="color: rgba(255, 252, 245, 0.7);">Chapter III</p>
+                <h2 class="script-text text-gold ink-reveal delay-200" style="font-size: clamp(3rem, 6vw, 4.5rem); margin-bottom: var(--space-md); text-shadow: 0 0 20px rgba(212,175,55,0.4);">Reception</h2>
+                
+                <!-- Invitation Card UI (Dark) -->
+                <div class="card-invitation fade-up delay-300" style="background: rgba(20, 15, 12, 0.65); border: 1px solid rgba(212, 175, 55, 0.25); box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 0 20px rgba(212,175,55,0.05); backdrop-filter: blur(10px); color: var(--color-warm-ivory);">
+                    <img src="./src/assets/images/golden_motif.svg" alt="" class="floral-divider" style="width: 40px; margin: 0 auto var(--space-md); filter: brightness(1.2);">
+                    <p class="text-caption" style="font-weight: 600; color: var(--color-antique-gold);">22 August</p>
+                    <p style="font-size: 1.3rem; margin: var(--space-xs) 0 var(--space-md);">6:00 PM Onwards</p>
+                    <p style="margin: 0; font-family: var(--font-editorial); opacity: 0.9;">Tirupati Mahal<br>Periakottai, Udumalpet</p>
+                    <img src="./src/assets/images/golden_motif.svg" alt="" class="floral-divider" style="width: 40px; margin: var(--space-md) auto 0; transform: rotate(180deg); filter: brightness(1.2);">
+                </div>
+
+                <div style="margin-top: var(--space-md); display: flex; flex-direction: column; align-items: center; gap: var(--space-lg);" class="fade-up delay-400">
+                    <button class="btn-luxury btn-calendar-event" data-event="reception" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; background-color: transparent; color: var(--color-ivory); border-color: rgba(212,175,55,0.6);">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        Add to Calendar
+                    </button>
+                    
+                    <div id="trigger-rsvp" class="rsvp-seal">
+                        <div class="seal-inner">
+                            <svg class="seal-floral" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2,2"/>
+                                <path d="M50 15 Q65 30 50 45 Q35 30 50 15 Z" fill="currentColor"/>
+                                <path d="M50 85 Q65 70 50 55 Q35 70 50 85 Z" fill="currentColor"/>
+                                <path d="M15 50 Q30 65 45 50 Q30 35 15 50 Z" fill="currentColor"/>
+                                <path d="M85 50 Q70 65 55 50 Q70 35 85 50 Z" fill="currentColor"/>
+                            </svg>
+                            <span class="seal-text">RSVP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAPTER 5: FAMILIES (Heritage) -->
+        <section id="families" class="section-wrapper text-center">
+            <div class="container">
+                <p class="text-caption fade-up">With the blessings of</p>
+                <div class="grid-editorial" style="margin-top: var(--space-md);">
+                    <div class="col-6 fade-up delay-200">
+                        <h3 style="font-family: var(--font-editorial); font-size: 2rem; color: var(--color-deep-forest); font-weight: 500; letter-spacing: 0.02em;" class="ink-reveal">S. Venkatesh Prabhu & Family</h3>
+                        <p class="text-caption" style="margin-top: var(--space-sm);">The Bride</p>
+                    </div>
+                    <div class="col-6 fade-up delay-300">
+                        <h3 style="font-family: var(--font-editorial); font-size: 2rem; color: var(--color-deep-forest); font-weight: 500; letter-spacing: 0.02em;" class="ink-reveal">P. Boopathi & Family</h3>
+                        <p class="text-caption" style="margin-top: var(--space-sm);">The Groom</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAPTER 7: VENUE (Atmosphere) -->
+        <section id="venue" class="section-wrapper">
+            <div class="bg-layer bg-texture-paper" data-speed="0.15"></div>
+            <div class="container grid-editorial">
+                <div class="col-5 fade-up" style="position: relative; z-index: 1;">
+                    <!-- Handcrafted Calligraphic Arrow -->
+                    <div class="venue-arrow-wrapper">
+                        <svg viewBox="0 0 150 200" class="venue-arrow-svg" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <filter id="ink-texture" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="3" result="noise" />
+                                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G" result="displaced" />
+                                </filter>
+                                <linearGradient id="gold-fade" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="var(--color-antique-gold)" stop-opacity="0.3" />
+                                    <stop offset="100%" stop-color="var(--color-antique-gold)" stop-opacity="1" />
+                                </linearGradient>
+                            </defs>
+                            
+                            <!-- The sweeping brush stroke -->
+                            <path class="arrow-path" 
+                                  d="M 10,20 Q 80,40 100,120 T 90,180" 
+                                  fill="none" 
+                                  stroke="url(#gold-fade)" 
+                                  stroke-width="2.5" 
+                                  stroke-linecap="round"
+                                  filter="url(#ink-texture)" />
+                                  
+                            <!-- The hand-drawn arrowhead -->
+                            <path class="arrow-head"
+                                  d="M 90,180 L 105,160 M 90,180 L 70,170"
+                                  fill="none"
+                                  stroke="var(--color-antique-gold)"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  filter="url(#ink-texture)" />
+                                  
+                            <!-- Elegant botanical additions -->
+                            <g class="arrow-botanicals" fill="var(--color-antique-gold)" filter="url(#ink-texture)">
+                                <!-- Tiny leaf -->
+                                <path d="M 40,30 Q 55,25 50,15 Q 35,20 40,30" opacity="0.8"/>
+                                <!-- Small bud -->
+                                <circle cx="75" cy="60" r="1.5" opacity="0.7"/>
+                                <!-- Jasmine-like petal -->
+                                <path d="M 95,95 Q 115,90 110,75 Q 90,80 95,95" opacity="0.9"/>
+                                <!-- Tiny leaf near arrowhead -->
+                                <path d="M 105,135 Q 120,130 115,115 Q 100,120 105,135" opacity="0.8"/>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <h2 class="title-display" style="margin-bottom: 0;">The</h2>
+                    <h2 class="script-text text-gold ink-reveal" style="margin-bottom: var(--space-sm);">Venue</h2>
+                    <p>Tirupati Mahal<br>Periakottai, Udumalpet</p>
+                    <div class="fade-up delay-300" style="margin-top: var(--space-md);">
+                        <a href="https://maps.google.com/?q=Tirupati+Mahal,+Periakottai,+Udumalpet" target="_blank" rel="noopener noreferrer" class="btn-luxury">View Map</a>
+                    </div>
+                </div>
+                <div class="col-spacer"></div>
+                <div class="col-6 fade-up delay-200">
+                    <div style="border-radius: 4px; box-shadow: var(--shadow-soft); overflow: hidden; aspect-ratio: 4/5; position: relative;">
+                        <img src="./src/assets/images/venue_illustration.jpg" alt="Venue Illustration" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAPTER 8: BLESSINGS (Emotion) -->
+        <section id="blessings" class="section-wrapper text-center">
+            <div class="container">
+                <img src="./src/assets/images/golden_motif.svg" alt="" class="floral-divider fade-in" style="width: 30px; margin-bottom: var(--space-md);">
+                <h3 class="script-text text-gold ink-reveal" style="font-size: 4vw; line-height: 1.2;">"To love and be loved is to feel the sun from both sides."</h3>
+            </div>
+        </section>
+
+        <!-- CHAPTER 9: CLOSING SCENE (Gratitude) -->
+        <section id="closing" class="section-wrapper text-center" style="justify-content: flex-end; padding-bottom: var(--space-xl);">
+            <div class="bg-layer" style="background: linear-gradient(to bottom, transparent, rgba(44, 76, 59, 0.05));" data-speed="0.05"></div>
+            <div class="container">
+                <p class="text-caption fade-up">Thank You</p>
+                <h2 class="script-text text-gold ink-reveal delay-200" style="font-size: 5rem;">We await your presence</h2>
+            </div>
+        </section>
+
+        <!-- FOOTER: SIGNATURE -->
+        <footer class="section-wrapper text-center" style="padding: var(--space-md) 0 var(--space-xl) 0; min-height: auto; background-color: transparent;">
+            <div class="container fade-up delay-400">
+                <div style="width: 50px; height: 1px; background-color: var(--color-antique-gold); margin: 0 auto var(--space-md); opacity: 0.3;"></div>
+                <p style="font-family: var(--font-editorial); font-size: 0.9rem; letter-spacing: 0.1em; color: var(--color-deep-forest); text-transform: uppercase; margin-bottom: 4px; opacity: 0.8;">
+                    A handcrafted experience by Sreehari Nivas
+                </p>
+                <p class="script-text text-gold" style="font-size: 1.5rem; opacity: 0.9;">Bride's Brother</p>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- NAVIGATION OVERLAY -->
+    <nav class="nav-overlay" id="nav-overlay">
+        <div class="nav-content">
+            <ul class="nav-links">
+                <li><a href="#hero" class="nav-item">I. The Invitation</a></li>
+                <li><a href="#story" class="nav-item">II. Our Story</a></li>
+                <li><a href="#details" class="nav-item">III. The Celebration</a></li>
+                <li><a href="#venue" class="nav-item">IV. The Venue</a></li>
+            </ul>
+        </div>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle Navigation">
+        <span class="line"></span>
+        <span class="line"></span>
+    </button>
+
+    <!-- CINEMATIC RSVP MODAL -->
+    <div id="rsvp-modal" class="rsvp-overlay">
+        <div class="rsvp-container">
+            <!-- Close Button -->
+            <button class="rsvp-close" id="rsvp-close" aria-label="Close RSVP">
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
+
+            <!-- VIEW 1: INITIAL SELECTION -->
+            <div class="rsvp-view is-active" id="rsvp-view-initial">
+                <img src="./src/assets/images/golden_motif.svg" alt="" class="floral-divider fade-in" style="width: 40px; margin: 0 auto var(--space-md);">
+                <h3 class="script-text text-gold ink-reveal" style="font-size: 3rem; margin-bottom: var(--space-sm);">You're Invited</h3>
+                <p style="font-family: var(--font-editorial); font-size: 1.2rem; color: var(--color-deep-forest); margin-bottom: var(--space-xl); max-width: 300px; margin-left: auto; margin-right: auto; line-height: 1.6;" class="fade-up delay-200">
+                    We would be delighted to have you celebrate this special day with us.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: var(--space-md); align-items: center;" class="fade-up delay-300">
+                    <button class="btn-luxury rsvp-action-btn" id="btn-attend" style="width: 100%; max-width: 300px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                        With Pleasure, I'll Attend
+                    </button>
+                    <button class="btn-luxury rsvp-action-btn" id="btn-blessings" style="width: 100%; max-width: 300px; background: transparent; color: var(--color-deep-forest); display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>
+                        Sending My Blessings
+                    </button>
+                </div>
+            </div>
+
+            <!-- VIEW 2: THE FORM -->
+            <div class="rsvp-view" id="rsvp-view-form">
+                <h3 class="script-text text-gold" style="font-size: 2.5rem; margin-bottom: var(--space-md);">Kindly Reply</h3>
+                
+                <form id="rsvp-form" class="custom-rsvp-form">
+                    <div class="input-group">
+                        <input type="text" id="guest-name" class="premium-input" placeholder=" " required>
+                        <label for="guest-name" class="premium-label">Guest Name</label>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="tel" id="guest-mobile" class="premium-input" placeholder=" " required>
+                        <label for="guest-mobile" class="premium-label">Mobile Number</label>
+                    </div>
+                    
+                    <div class="input-group">
+                        <select id="guest-count" class="premium-input" required>
+                            <option value="" disabled selected hidden></option>
+                            <option value="1">1 Guest</option>
+                            <option value="2">2 Guests</option>
+                            <option value="3">3 Guests</option>
+                            <option value="4+">4+ Guests</option>
+                        </select>
+                        <label for="guest-count" class="premium-label select-label">Number of Guests</label>
+                        <div class="select-arrow"></div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <select id="guest-event" class="premium-input" required>
+                            <option value="" disabled selected hidden></option>
+                            <option value="reception">Reception Only</option>
+                            <option value="muhurtham">Muhurtham Only</option>
+                            <option value="both">Both Events</option>
+                        </select>
+                        <label for="guest-event" class="premium-label select-label">Attending Event</label>
+                        <div class="select-arrow"></div>
+                    </div>
+
+                    <div class="input-group">
+                        <textarea id="guest-wishes" class="premium-input premium-textarea" placeholder=" " rows="2"></textarea>
+                        <label for="guest-wishes" class="premium-label">Wishes for the Couple (Optional)</label>
+                    </div>
+
+                    <button type="submit" class="btn-luxury rsvp-submit-btn" style="width: 100%; margin-top: var(--space-sm);" id="btn-submit">
+                        <span class="btn-text">Send My RSVP</span>
+                        <div class="loader-spinner"></div>
+                    </button>
+                    
+                    <button type="button" class="rsvp-back-btn" id="btn-form-back">← Back</button>
+                </form>
+            </div>
+
+            <!-- VIEW 3: SUCCESS -->
+            <div class="rsvp-view" id="rsvp-view-success">
+                <!-- Petal container -->
+                <div class="falling-petals" id="falling-petals"></div>
+                
+                <img src="./src/assets/images/golden_motif.svg" alt="" class="floral-divider" style="width: 50px; margin: 0 auto var(--space-md); position: relative; z-index: 2;">
+                <h3 class="script-text text-gold" style="font-size: 3rem; margin-bottom: var(--space-sm); position: relative; z-index: 2;" id="success-title">Thank You for Your Response</h3>
+                <p style="font-family: var(--font-editorial); font-size: 1.2rem; color: var(--color-deep-forest); margin-bottom: var(--space-xl); max-width: 300px; margin-left: auto; margin-right: auto; line-height: 1.6; position: relative; z-index: 2;" id="success-message">
+                    We look forward to celebrating this beautiful occasion with you.
+                </p>
+                
+                <div style="display: flex; flex-direction: column; gap: var(--space-md); align-items: center; position: relative; z-index: 2;">
+                    <button class="btn-luxury" style="width: 100%; max-width: 300px; display: flex; align-items: center; justify-content: center; gap: 10px;" id="btn-calendar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        Add to Calendar
+                    </button>
+                    <button class="btn-luxury" style="width: 100%; max-width: 300px; background: transparent; color: var(--color-deep-forest); display: flex; align-items: center; justify-content: center; gap: 10px;" id="btn-share">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                        Share Invitation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./src/scripts/particles.js"></script>
+    <script src="./src/scripts/main.js"></script>
+</body>
+</html>
